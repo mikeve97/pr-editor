@@ -9,13 +9,7 @@ try {
     }
 
     const { head: { ref: prBranchName = '' }, title: prTitle = '', body: prBody = '' } = github.context.payload.pull_request;
-    const workItemNumber = prBranchName?.match(/^(\d+)-/)?.[1];
-
-    //log all the things
-    core.info(`PR branch name: ${prBranchName}`);
-    core.info(`PR title: ${prTitle}`);
-    core.info(`PR body: ${prBody}`);
-    core.info(`Work item: ${workItemNumber}`);
+    const workItemNumber = prBranchName?.match(/^(\d+)/)?.[0];
 
     if (isNaN(Number(workItemNumber))) {
         core.setFailed('Branch name does not include work item number.');
@@ -32,7 +26,7 @@ try {
         prTitle;
 
     const newPrBody = !prBody.includes(workItemNumber) ?
-        `${prBody || ''}\n Work item: AB#${workItemNumber}` :
+        `${prBody || ''}\n AB#${workItemNumber}` :
         prBody;
 
     if (newPrTitle !== prTitle) {
@@ -53,7 +47,6 @@ try {
         body: newPrBody,
         title: newPrTitle
     });
-
 } catch (error) {
     core.error(error);
     core.setFailed(error.message);
