@@ -12,7 +12,7 @@ try {
     const prBranchName = ref || '';
     const prTitle = title || '';
     const prBody = body || '';
-    const workItemNumber = prBranchName?.match(/^(\d+)/)?.[0];
+    const workItemNumber = prBranchName.match(/^(\d+)/)?.[0];
 
     if (isNaN(Number(workItemNumber))) {
         core.setFailed('Branch name does not include work item number.');
