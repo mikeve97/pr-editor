@@ -25,11 +25,11 @@ try {
     }
 
     const newPrTitle = !prTitle.includes(workItemNumber) ?
-        `${workItemNumber} - ${prTitle || ''}` :
+        `${workItemNumber} - ${prTitle}` :
         prTitle;
 
     const newPrBody = !prBody.includes(workItemNumber) ?
-        `${prBody || ''}\n AB#${workItemNumber}` :
+        `${prBody}\n AB#${workItemNumber}` :
         prBody;
 
     if (newPrTitle !== prTitle) {
