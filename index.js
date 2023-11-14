@@ -8,7 +8,10 @@ try {
         return;
     }
 
-    const { head: { ref: prBranchName = '' }, title: prTitle = '', body: prBody = '' } = github.context.payload.pull_request;
+    const { head: { ref }, title, body } = github.context.payload.pull_request;
+    const prBranchName = ref || '';
+    const prTitle = title || '';
+    const prBody = body || '';
     const workItemNumber = prBranchName?.match(/^(\d+)/)?.[0];
 
     if (isNaN(Number(workItemNumber))) {
